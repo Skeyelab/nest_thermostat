@@ -147,6 +147,11 @@ module NestThermostat
       status["device"][device_id]["fan_mode"]
     end
 
+    def has_fan
+      status["device"][device_id]["has_fan"]
+    end
+
+
     def fan_mode=(state)
       HTTParty.post(
         "#{self.transport_url}/v2/put/device.#{self.device_id}",
