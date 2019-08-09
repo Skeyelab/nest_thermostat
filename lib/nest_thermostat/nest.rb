@@ -151,10 +151,6 @@ module NestThermostat
       status["device"][device_id]["has_fan"]
     end
 
-    def fan_mode
-      status["device"][device_id]["fan_mode"]
-    end
-
     def fan_mode=(state)
       HTTParty.post(
         "#{self.transport_url}/v2/put/device.#{self.device_id}",
@@ -174,7 +170,7 @@ module NestThermostat
     def fan_timer_duration=(duration)
       HTTParty.post(
         "#{self.transport_url}/v2/put/device.#{self.device_id}",
-        body: %Q({"fan_timer_duration":"#{duration}"}),
+        body: %Q({"fan_timer_duration":"#{duration}", "fan_timer_active": true}),
         headers: self.headers
       ) rescue nil
     end
