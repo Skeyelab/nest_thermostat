@@ -171,6 +171,14 @@ module NestThermostat
       ) rescue nil
     end
 
+    def fan_timer_duration=(duration)
+      HTTParty.post(
+        "#{self.transport_url}/v2/put/device.#{self.device_id}",
+        body: %Q({"fan_timer_duration":"#{duration}"}),
+        headers: self.headers
+      ) rescue nil
+    end
+
     def method_missing(name, *args, &block)
       if %i[away leaf].include?(name)
         warn "`#{name}' has been replaced with `#{name}?'. Support for " +
